@@ -1,4 +1,4 @@
-import basePhrases from '../phrases.ts'
+import basePhrases from './phrases.ts'
 
 export enum Unit {
   Words = 'words',
