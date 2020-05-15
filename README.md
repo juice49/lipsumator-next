@@ -2,8 +2,8 @@
 
 In 2015 I made [Lipsumator](http://github.com/juice49/lipsumator), a
 customisable placeholder text generator. The project used new (at the time)
-JavaScript features like generators, so it relis on some tooling that has become
-pretty out of date.
+JavaScript features like generators, so it relies on some tooling that has
+become pretty out of date.
 
 I still use the `lipsumator` CLI command occasionally, and I've been intending
 to modernise the project for a while. Quickly generating  placeholder text from
