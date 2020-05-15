@@ -47,12 +47,25 @@ function* words (
   }
 }
 
+function* clauses (
+  phrases: string[],
+  length: number = Infinity
+): Generator<string, void> {
+  for (let i = 0; i < length; i ++) {
+    const prepend = i !== 0
+      ? ', '
+      : ''
+
+      yield prepend + [...words(phrases, 5)].join('')
+  }
+}
+
 function* sentences (
   phrases: string[],
   length: number = Infinity
 ): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
-    yield [...words(phrases, 5)].join('') + '.'
+    yield [...clauses(phrases, 3)].join('') + '.'
   }
 }
 
