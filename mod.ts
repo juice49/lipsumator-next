@@ -134,6 +134,6 @@ function* paragraphs ({
       continue
     }
 
-    yield [...outputs].join(' ') + '\n\n'
+    yield [...outputs].join('') + '\n\n'
   }
 }
