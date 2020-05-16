@@ -1,9 +1,5 @@
 # Lipsumator next
 
-<video controls>
-  <source src='https://files-1go6hehqr.now.sh' type='video/mp4'>
-</video>
-
 In 2015 I made [Lipsumator](http://github.com/juice49/lipsumator), a
 customisable placeholder text generator. The project used new (at the time)
 JavaScript features like generators, so it relies on some tooling that has
