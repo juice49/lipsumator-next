@@ -19,9 +19,9 @@ const generators = {
 }
 
 export default function* lipsumator ({
-  unit,
-  length,
-  phrases
+  unit = Unit.Paragraphs,
+  length = 1,
+  phrases = []
 }: Options): Generator<string, void> {
   const allPhrases = [
     ...phrases,
