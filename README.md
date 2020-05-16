@@ -31,7 +31,7 @@ lipsumator --unit paragraphs --length 3
 ### Generate three paragraphs with custom phrases
 
 ```
-lipsumator --unit paragraphs --length 3 --phrase 'Maranta leuconeura' --phrase 'Monstera Deliciosa' --phrase 'Urtica Dioica'
+lipsumator --unit paragraphs --length 3 --phrase 'Maranta Leuconeura' --phrase 'Monstera Deliciosa' --phrase 'Urtica Dioica'
 ```
 
 ### Generate ten sentences
