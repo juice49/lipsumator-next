@@ -6,7 +6,8 @@ const { args, stdout } = Deno
 type Args = {
   unit?: Unit,
   length?: string,
-  phrase?: string | string[]
+  phrase?: string | string[],
+  unformatted?: boolean
 }
 
 async function main () {
@@ -15,6 +16,9 @@ async function main () {
       'unit',
       'length',
       'phrase'
+    ],
+    boolean: [
+      'unformatted'
     ],
     alias: {
       u: 'unit',
@@ -37,7 +41,8 @@ function createOptions (args: Args): Options {
     phrases: ([] as string[]).concat(args.phrase ?? []),
     length: typeof args.length !== 'undefined'
       ? Number(args.length)
-      : undefined
+      : undefined,
+    applyFormatting: !args.unformatted
   }
 }
 
