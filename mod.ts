@@ -1,4 +1,5 @@
 import uppercaseFirst from './lib/uppercase_first.ts'
+import randomInteger from './lib/random_integer.ts'
 import basePhrases from './phrases.ts'
 
 export enum Unit {
@@ -78,7 +79,7 @@ function* clauses ({
       : ''
 
     const outputs = words({
-      length: 5,
+      length: randomInteger(2, 10),
       phrases,
       applyFormatting
     })
@@ -99,7 +100,7 @@ function* sentences ({
 }: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
     const outputs = clauses({
-      length: 3,
+      length: randomInteger(1, 3),
       phrases,
       applyFormatting
     })
@@ -124,7 +125,7 @@ function* paragraphs ({
 }: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
     const outputs = sentences({
-      length: 5,
+      length: randomInteger(3, 6),
       phrases,
       applyFormatting
     })
