@@ -37,7 +37,7 @@ function createOptions (args: Args): Options {
     phrases: ([] as string[]).concat(args.phrase ?? []),
     length: typeof args.length !== 'undefined'
       ? Number(args.length)
-      : undefined,
+      : undefined
   }
 }
 
