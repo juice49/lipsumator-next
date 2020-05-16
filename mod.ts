@@ -9,7 +9,7 @@ export enum Unit {
 export interface Options {
   unit: Unit,
   length?: number,
-  phrases: string[]
+  phrases?: string[]
 }
 
 const generators = {
