@@ -1,3 +1,4 @@
+import uppercaseFirst from './lib/uppercase_first.ts'
 import basePhrases from './phrases.ts'
 
 export enum Unit {
@@ -112,7 +113,7 @@ function* sentences ({
       continue
     }
 
-    yield prepend + [...outputs].join('') + '.'
+    yield prepend + uppercaseFirst([...outputs].join('')) + '.'
   }
 }
 
