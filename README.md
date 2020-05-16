@@ -20,6 +20,41 @@ Lipsumator. I want to try it all out and see how it works.
 deno install -n lipsumator https://denopkg.com/juice49/lipsumator-next/cli.ts
 ```
 
+## Run
+
+### Generate three paragraphs
+
+```
+lipsumator --unit paragraphs --length 3
+```
+
+### Generate three paragraphs with custom phrases
+
+```
+lipsumator --unit paragraphs --length 3 --phrase 'Maranta leuconeura' --phrase 'Monstera Deliciosa' --phrase 'Urtica Dioica'
+```
+
+### Generate ten sentences
+
+```
+lipsumator --unit paragraphs --length 10
+```
+
+### Generate fifty words
+
+```
+lipsumator --unit words --length 50
+```
+
+## Command line arguments
+
+| Argument | Alias | Default | Description |
+| --- | --- | --- |
+| `unit` | `u` | `paragraphs` | Units of text to generate (`words`, `sentences`, or `paragraphs`). |
+| `length` | `l` | `1` | Quantity of text units to generate (`Infinity` for fun). |
+| `phrase` | `p` | | Append a phrase to the phrase list. |
+| `unformatted` | | `false` | Emit each unit of text without formatting or punctuation.  |
+
 ## Future
 
 Lipsumator itself can probably be an independent library that can run in any JS
