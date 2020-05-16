@@ -6,10 +6,13 @@ export enum Unit {
   Paragraphs = 'paragraphs'
 }
 
-export interface Options {
-  unit: Unit,
+interface GeneratorOptions {
   length?: number,
-  phrases?: string[]
+  phrases: string[]
+}
+
+export interface Options extends GeneratorOptions {
+  unit: Unit
 }
 
 const generators = {
@@ -28,15 +31,20 @@ export default function* lipsumator ({
     ...basePhrases
   ]
 
-  for (const output of generators[unit](allPhrases, length)) {
+  const outputs = generators[unit]({
+    phrases: allPhrases,
+    length: length
+  })
+
+  for (const output of outputs) {
     yield output
   }
 }
 
-function* words (
-  phrases: string[],
-  length: number = Infinity
-): Generator<string, void> {
+function* words ({
+  phrases,
+  length = Infinity
+}: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
     // TOOD: Buffer output to skip repeats.
     const prepend = i !== 0
@@ -47,33 +55,48 @@ function* words (
   }
 }
 
-function* clauses (
-  phrases: string[],
-  length: number = Infinity
-): Generator<string, void> {
+function* clauses ({
+  phrases,
+  length = Infinity
+}: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
     const prepend = i !== 0
       ? ', '
       : ''
 
-      yield prepend + [...words(phrases, 5)].join('')
+    const outputs = words({
+      length: 5,
+      phrases
+    })
+
+    yield prepend + [...outputs].join('')
   }
 }
 
-function* sentences (
-  phrases: string[],
-  length: number = Infinity
-): Generator<string, void> {
+function* sentences ({
+  phrases,
+  length = Infinity
+}: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
-    yield [...clauses(phrases, 3)].join('') + '.'
+    const outputs = clauses({
+      length: 3,
+      phrases
+    })
+
+    yield [...outputs].join('') + '.'
   }
 }
 
-function* paragraphs (
-  phrases: string[],
-  length: number = Infinity
-): Generator<string, void> {
+function* paragraphs ({
+  phrases,
+  length = Infinity
+}: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
-    yield [...sentences(phrases, 5)].join(' ') + '\n\n'
+    const outputs = sentences({
+      length: 5,
+      phrases
+    })
+
+    yield [...outputs].join(' ') + '\n\n'
   }
 }
