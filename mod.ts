@@ -8,7 +8,8 @@ export enum Unit {
 
 interface GeneratorOptions {
   length?: number,
-  phrases: string[]
+  phrases: string[],
+  applyFormatting: boolean
 }
 
 export interface Options extends GeneratorOptions {
@@ -24,7 +25,8 @@ const generators = {
 export default function* lipsumator ({
   unit = Unit.Paragraphs,
   length = 1,
-  phrases = []
+  phrases = [],
+  applyFormatting = true
 }: Options): Generator<string, void> {
   const allPhrases = [
     ...phrases,
@@ -33,7 +35,8 @@ export default function* lipsumator ({
 
   const outputs = generators[unit]({
     phrases: allPhrases,
-    length: length
+    length: length,
+    applyFormatting
   })
 
   for (const output of outputs) {
@@ -43,7 +46,8 @@ export default function* lipsumator ({
 
 function* words ({
   phrases,
-  length = Infinity
+  length = Infinity,
+  applyFormatting
 }: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
     // TOOD: Buffer output to skip repeats.
@@ -51,13 +55,21 @@ function* words ({
       ? ' '
       : ''
 
-    yield prepend + phrases[Math.floor(Math.random() * phrases.length)]
+    const phrase = phrases[Math.floor(Math.random() * phrases.length)]
+
+    if (!applyFormatting) {
+      yield phrase
+      continue
+    }
+
+    yield prepend + phrase
   }
 }
 
 function* clauses ({
   phrases,
-  length = Infinity
+  length = Infinity,
+  applyFormatting
 }: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
     const prepend = i !== 0
@@ -66,8 +78,14 @@ function* clauses ({
 
     const outputs = words({
       length: 5,
-      phrases
+      phrases,
+      applyFormatting
     })
+
+    if (!applyFormatting) {
+      yield* outputs
+      continue
+    }
 
     yield prepend + [...outputs].join('')
   }
@@ -75,27 +93,45 @@ function* clauses ({
 
 function* sentences ({
   phrases,
-  length = Infinity
+  length = Infinity,
+  applyFormatting
 }: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
     const outputs = clauses({
       length: 3,
-      phrases
+      phrases,
+      applyFormatting
     })
 
-    yield [...outputs].join('') + '.'
+    const prepend = i !== 0
+      ? ' '
+      : ''
+
+    if (!applyFormatting) {
+      yield* outputs
+      continue
+    }
+
+    yield prepend + [...outputs].join('') + '.'
   }
 }
 
 function* paragraphs ({
   phrases,
-  length = Infinity
+  length = Infinity,
+  applyFormatting
 }: GeneratorOptions): Generator<string, void> {
   for (let i = 0; i < length; i ++) {
     const outputs = sentences({
       length: 5,
-      phrases
+      phrases,
+      applyFormatting
     })
+
+    if (!applyFormatting) {
+      yield* outputs
+      continue
+    }
 
     yield [...outputs].join(' ') + '\n\n'
   }
