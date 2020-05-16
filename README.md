@@ -49,7 +49,7 @@ lipsumator --unit words --length 50
 ## Command line arguments
 
 | Argument | Alias | Default | Description |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | `unit` | `u` | `paragraphs` | Units of text to generate (`words`, `sentences`, or `paragraphs`). |
 | `length` | `l` | `1` | Quantity of text units to generate (`Infinity` for fun). |
 | `phrase` | `p` | | Append a phrase to the phrase list. |
