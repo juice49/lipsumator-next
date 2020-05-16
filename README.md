@@ -14,6 +14,12 @@ the tires. Deno includes script distribution, bundling, testing, and command
 line argument parsing tools. Everything I need for the next version of
 Lipsumator. I want to try it all out and see how it works.
 
+## Install
+
+```
+deno install -n lipsumator https://denopkg.com/juice49/lipsumator-next/cli.ts
+```
+
 ## Future
 
 Lipsumator itself can probably be an independent library that can run in any JS
@@ -28,4 +34,3 @@ the Deno CLI and the Lipsumator library. Let's split those apart in the future.
 - Look for a project phrase list in the `cwd`. Do we need to do anything with
 [Deno permissions](https://deno.land/manual/examples/permissions) to make this
 work?
-- Add [install instructions](https://deno.land/manual/tools/script_installer).
