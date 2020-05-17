@@ -17,7 +17,7 @@ Lipsumator. I want to try it all out and see how it works.
 ## Install
 
 ```
-deno install -n lipsumator https://denopkg.com/juice49/lipsumator-next/cli.ts
+deno install -n lipsumator https://denopkg.com/juice49/lipsumator-next@1.0.0/cli.ts
 ```
 
 ## Run
