@@ -37,7 +37,7 @@ lipsumator --unit paragraphs --length 3 --phrase 'Maranta Leuconeura' --phrase '
 ### Generate ten sentences
 
 ```
-lipsumator --unit paragraphs --length 10
+lipsumator --unit sentences --length 10
 ```
 
 ### Generate fifty words
