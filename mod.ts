@@ -21,7 +21,13 @@ export default function* lipsumator ({
     ...basePhrases
   ]
 
-  const outputs = generators[unit]({
+  const generator = generators[unit]
+
+  if (typeof generator === 'undefined') {
+    throw new Error(`No Lipsumator generator for "${unit}".`)
+  }
+
+  const outputs = generator({
     phrases: allPhrases,
     length: length,
     applyFormatting
