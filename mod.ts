@@ -27,13 +27,9 @@ export default function* lipsumator ({
     throw new Error(`No Lipsumator generator for "${unit}".`)
   }
 
-  const outputs = generator({
+  yield* generator({
     phrases: allPhrases,
     length: length,
     applyFormatting
   })
-
-  for (const output of outputs) {
-    yield output
-  }
 }
