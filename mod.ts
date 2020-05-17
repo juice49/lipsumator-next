@@ -1,22 +1,8 @@
-import uppercaseFirst from './lib/uppercase_first.ts'
-import randomInteger from './lib/random_integer.ts'
+import { Options, Unit } from './types.ts'
+import words from './lib/generators/words.ts'
+import sentences from './lib/generators/sentences.ts'
+import paragraphs from './lib/generators/paragraphs.ts'
 import basePhrases from './phrases.ts'
-
-export enum Unit {
-  Words = 'words',
-  Sentences = 'sentences',
-  Paragraphs = 'paragraphs'
-}
-
-interface GeneratorOptions {
-  length?: number,
-  phrases: string[],
-  applyFormatting: boolean
-}
-
-export interface Options extends GeneratorOptions {
-  unit: Unit
-}
 
 const generators = {
   [Unit.Words]: words,
@@ -43,98 +29,5 @@ export default function* lipsumator ({
 
   for (const output of outputs) {
     yield output
-  }
-}
-
-function* words ({
-  phrases,
-  length = Infinity,
-  applyFormatting
-}: GeneratorOptions): Generator<string, void> {
-  for (let i = 0; i < length; i ++) {
-    // TOOD: Buffer output to skip repeats.
-    const prepend = i !== 0
-      ? ' '
-      : ''
-
-    const phrase = phrases[Math.floor(Math.random() * phrases.length)]
-
-    if (!applyFormatting) {
-      yield phrase
-      continue
-    }
-
-    yield prepend + phrase
-  }
-}
-
-function* clauses ({
-  phrases,
-  length = Infinity,
-  applyFormatting
-}: GeneratorOptions): Generator<string, void> {
-  for (let i = 0; i < length; i ++) {
-    const prepend = i !== 0
-      ? ', '
-      : ''
-
-    const outputs = words({
-      length: randomInteger(2, 10),
-      phrases,
-      applyFormatting
-    })
-
-    if (!applyFormatting) {
-      yield* outputs
-      continue
-    }
-
-    yield prepend + [...outputs].join('')
-  }
-}
-
-function* sentences ({
-  phrases,
-  length = Infinity,
-  applyFormatting
-}: GeneratorOptions): Generator<string, void> {
-  for (let i = 0; i < length; i ++) {
-    const outputs = clauses({
-      length: randomInteger(1, 3),
-      phrases,
-      applyFormatting
-    })
-
-    const prepend = i !== 0
-      ? ' '
-      : ''
-
-    if (!applyFormatting) {
-      yield* outputs
-      continue
-    }
-
-    yield prepend + uppercaseFirst([...outputs].join('')) + '.'
-  }
-}
-
-function* paragraphs ({
-  phrases,
-  length = Infinity,
-  applyFormatting
-}: GeneratorOptions): Generator<string, void> {
-  for (let i = 0; i < length; i ++) {
-    const outputs = sentences({
-      length: randomInteger(3, 6),
-      phrases,
-      applyFormatting
-    })
-
-    if (!applyFormatting) {
-      yield* outputs
-      continue
-    }
-
-    yield [...outputs].join('') + '\n\n'
   }
 }

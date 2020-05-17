@@ -1,5 +1,6 @@
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts'
-import lipsumator, { Unit } from './mod.ts'
+import { Unit } from './types.ts'
+import lipsumator from './mod.ts'
 
 const { test } = Deno
 
