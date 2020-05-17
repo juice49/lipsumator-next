@@ -1,5 +1,6 @@
 import { parse } from 'https://deno.land/std/flags/mod.ts'
-import lipsumator, { Options, Unit } from './mod.ts'
+import { Unit, Options } from './types.ts'
+import lipsumator from './mod.ts'
 
 const { args, stdout } = Deno
 
